@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  neeopilot:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      platforms:
+        - linux/arm64
+    platform: linux/arm64
+    container_name: neeopilot-arm64
+    ports:
+      - "5900:5900"  # Puerto VNC para ver la GUI (opcional)
+      - "5000:5000"  # Puerto Flask API (si lo usas)
+    volumes:
+      - ./frontend:/app/frontend:ro
+      - ./backend:/app/backend:ro
+      - ./config:/app/config:ro
+    environment:
+      - DISPLAY=:99
+      - QT_X11_NO_MITSHM=1
+      - QT_GRAPHICSSYSTEM=native
+    restart: unless-stopped
+    tty: true
+    stdin_open: true
