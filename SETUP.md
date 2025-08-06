@@ -38,7 +38,7 @@ cd neeopilot
 #### Crear entorno virtual
 ```bash
 cd backend
-python3 -m venv venv
+python3 -m venv venv --system-site-packages  # Importante para Raspberry Pi
 ```
 
 #### Activar entorno virtual
@@ -97,6 +97,23 @@ npm start
 ```
 
 ## 🛠️ Solución de Problemas
+
+### Error de PyQt5 en Raspberry Pi
+Si obtienes el error "PyQt5 no disponible en el sistema":
+
+1. **Instalar PyQt5 a nivel del sistema:**
+```bash
+sudo apt install -y python3-pyqt5 python3-pyqt5-dev python3-pyqt5.qtwebengine
+```
+
+2. **Recrear entorno virtual con acceso al sistema:**
+```bash
+cd backend
+rm -rf venv
+python3 -m venv venv --system-site-packages
+source venv/bin/activate
+pip install -r requirements.txt
+```
 
 ### Error de PyQt5 en Linux
 ```bash

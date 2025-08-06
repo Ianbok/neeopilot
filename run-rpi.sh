@@ -22,10 +22,21 @@ if [[ $(uname -m) != arm* ]] && [[ $(uname -m) != aarch64 ]]; then
     fi
 fi
 
-# Verificar dependencias de sistema en Raspberry Pi
-if ! python3 -c "import PyQt5" 2>/dev/null; then
-    echo "❌ PyQt5 no disponible en el sistema"
-    echo "💡 Instala con: sudo apt install python3-pyqt5 python3-pyqt5.qtwebengine"
+# Activar entorno virtual si existe
+if [ -d "backend/venv" ]; then
+    echo "🔧 Activando entorno virtual..."
+    source backend/venv/bin/activate
+    
+    # Verificar PyQt5 en el entorno virtual
+    if ! python3 -c "import PyQt5" 2>/dev/null; then
+        echo "❌ PyQt5 no disponible en el entorno virtual"
+        echo "💡 Reinstala el entorno virtual con: cd backend && rm -rf venv && python3 -m venv venv --system-site-packages && source venv/bin/activate && pip install -r requirements.txt"
+        exit 1
+    fi
+    echo "✅ PyQt5 disponible en entorno virtual"
+else
+    echo "⚠️  No se encontró entorno virtual en backend/venv"
+    echo "💡 Crea el entorno virtual con: cd backend && python3 -m venv venv --system-site-packages && source venv/bin/activate && pip install -r requirements.txt"
     exit 1
 fi
 
