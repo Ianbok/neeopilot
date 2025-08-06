@@ -1,0 +1,16 @@
+# NeoPilot Backend Dependencies
+# Core GUI framework
+PyQt5==5.15.11
+
+# Web server and networking
+Flask==3.0.0
+Werkzeug==3.0.1
+
+# WebSocket support
+websockets==12.0
+
+# System monitoring and process management
+psutil==5.9.6
+
+# Additional utilities
+requests==2.31.0
